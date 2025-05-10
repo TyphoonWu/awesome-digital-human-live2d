@@ -3,7 +3,7 @@
 FROM registry.cn-hangzhou.aliyuncs.com/awesome-digital-human/node:alpine3.19
 
 # 添加代码
-ADD /web/ /workspace
+COPY web/ /workspace
 WORKDIR /workspace
 
 # npm换源
