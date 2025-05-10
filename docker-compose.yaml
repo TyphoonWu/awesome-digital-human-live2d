@@ -9,7 +9,7 @@ services:
     restart: always
     # network_mode: host
     ports:
-      - "3000:3000"
+      - "3080:3080"
     volumes:
       - ./web/.env:/workspace/.env
   # awesome digital human server
