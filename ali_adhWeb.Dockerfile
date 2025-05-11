@@ -1,3 +1,5 @@
+# 本文件用于阿里云镜像部署，本地部署使用docker目录中的Dockerfile
+
 # FROM node:alpine3.19
 # 使用阿里云镜像
 FROM registry.cn-hangzhou.aliyuncs.com/awesome-digital-human/node:alpine3.19
@@ -17,5 +19,8 @@ RUN apk update && apk add --no-cache python3 make gcc g++ musl-dev linux-headers
 RUN npm install -g pnpm \
     && pnpm install \
     && pnpm run build
+
+# 暴露端口 docker run -p 3080:3080 your-image-name
+EXPOSE 3080
 
 ENTRYPOINT ["pnpm", "run", "start"]

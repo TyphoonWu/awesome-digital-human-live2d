@@ -1,3 +1,5 @@
+# 本文件用于阿里云镜像部署，本地部署使用docker目录中的Dockerfile
+
 # FROM ubuntu:20.04
 # 使用阿里云镜像
 FROM registry.cn-hangzhou.aliyuncs.com/awesome-digital-human/ubuntu:20.04
@@ -30,5 +32,8 @@ WORKDIR /workspace
 
 # 安装pip依赖库
 RUN pip install -r /workspace/requirements.txt
+
+# 暴露端口 docker run -p 8000:8000 your-image-name
+EXPOSE 8000
 
 ENTRYPOINT ["python3", "main.py"]

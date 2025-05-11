@@ -66,6 +66,8 @@ docker-compose -f docker-compose-quickStart.yaml up -d
 ```
 
 ### 容器部署（容器开发首选）
+
+#### ubuntu + docker部署：
 重新本地构建容器(删除之前构建好的镜像，如果没有镜像代理可能拉不下来基础镜像)
 > 基础环境
 * 安装[docker-compose](https://docs.docker.com/compose/install/)
@@ -76,9 +78,42 @@ docker-compose -f docker-compose-quickStart.yaml up -d
 docker-compose up --build -d
 ```
 
+#### windows + wsl + docker部署：
+设置wsl C:\Users\admin\.wslconfig:
+```bash
+[wsl2]
+networkingMode=mirrored
+autoProxy=true
+dnsTunneling=true
+[experimental]
+hostAddressLoopback=true
+```
+重启wsl:
+```bash
+# PowerShell
+wsl --shutdown
+```
+重启后确认windows C:\Windows\System32\drivers\etc\hosts已配置上:
+```bash
+# Added by Docker Desktop
+192.168.31.167 host.docker.internal
+192.168.31.167 gateway.docker.internal
+# To allow the same kube context to work on the host and the container:
+127.0.0.1 kubernetes.docker.internal
+# End of section
+```
+同时确认wsl shell中ping host.docker.internal返回的是windows的ip:
+```bash
+PING host.docker.internal (192.168.31.167) 56(84) bytes of data.
+64 bytes from host.docker.internal (192.168.31.167): icmp_seq=1 ttl=64 time=0.131 ms
+64 bytes from host.docker.internal (192.168.31.167): icmp_seq=2 ttl=64 time=0.042 ms
+64 bytes from host.docker.internal (192.168.31.167): icmp_seq=3 ttl=64 time=0.246 ms
+```
+
 ### 访问页面
-本地浏览器访问路径: http://localhost:3000  
-非本地浏览器访问路径: http://{部署服务器IP}:3000
+本地浏览器访问路径: http://localhost:3080  
+非本地浏览器访问路径: http://{部署服务器IP}:3080
+windows + wsl + docker访问路径也可使用: http://host.docker.internal:3080
 
 ### 接入Dify
 #### 1. 部署dify
@@ -105,7 +140,7 @@ docker-compose up --build -d
 * `NEXT_PUBLIC_ADH_SERVER_VERSION`：API版本，默认为`v0`
 
 #### 暴露端口
-* 前端端口：`awesome-digital-human-live2d/web/package.json`中的启动脚本中`"start": "next start -p 3000"`，其中`-p`指定了启动端口
+* 前端端口：`awesome-digital-human-live2d/web/package.json`中的启动脚本中`"start": "next start -p 3080"`，其中`-p`指定了启动端口
 * 后端端口：配置文件`awesome-digital-human-live2d/configs/config.yaml`(这里修改你具体使用的配置文件)中`PORT`字段指定了启动端口
 
 #### 快捷按键
