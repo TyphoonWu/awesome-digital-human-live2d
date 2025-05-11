@@ -1,8 +1,9 @@
+# docker login --username=[you account name] crpi-w1ybv4pdc53hqz7r.cn-hangzhou.personal.cr.aliyuncs.com
 version: '3'
 services:
   # awesome digital human web
   adh_web:
-    image: "registry.cn-hangzhou.aliyuncs.com/awesome-digital-human/adh-web:main-latest"
+    image: "crpi-w1ybv4pdc53hqz7r.cn-hangzhou.personal.cr.aliyuncs.com/guanping/awesome-digital-human-live2d:adhWeb_2.0.0"
     restart: always
     pull_policy: always
     # network_mode: host
@@ -12,7 +13,7 @@ services:
       - ./web/.env:/workspace/.env
   # awesome digital human server
   adh_server:
-    image: "registry.cn-hangzhou.aliyuncs.com/awesome-digital-human/adh-api:main-latest"
+    image: "crpi-w1ybv4pdc53hqz7r.cn-hangzhou.personal.cr.aliyuncs.com/guanping/awesome-digital-human-live2d:adhServer_2.0.0"
     restart: always
     pull_policy: always
     # network_mode: host
